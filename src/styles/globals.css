@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------------------
+   DESIGN TOKENS
+   Raw values live in :root / the dark-mode media query. The @theme inline
+   block below maps them into Tailwind's namespace so they're usable as
+   utilities (bg-background, text-accent, font-display, rounded-lg,
+   shadow-md, etc).
+
+   This file is the single place the portfolio's visual identity is
+   defined. Fonts and the accent color here are a first pass (see
+   architecture doc, §5) — deliberately easy to swap because everything
+   downstream reads from these tokens, not hardcoded values.
+------------------------------------------------------------------------- */
+
+:root {
+  /* Neutral scale — warm-tinted (stone, not pure gray) to sit well
+     alongside a warm accent rather than fighting it. */
+  --color-neutral-50: #fafaf8;
+  --color-neutral-100: #f1efeb;
+  --color-neutral-200: #e4e0d8;
+  --color-neutral-300: #cbc4b6;
+  --color-neutral-400: #a69c89;
+  --color-neutral-500: #7c7263;
+  --color-neutral-600: #5c544a;
+  --color-neutral-700: #453f38;
+  --color-neutral-800: #2b2723;
+  --color-neutral-900: #1a1815;
+  --color-neutral-950: #100e0c;
+
+  /* Primary accent — a considered warm copper, not the generic
+     SaaS/template green or the equally-overused "AI purple" gradient. */
+  --color-accent: #c2660c;
+  --color-accent-hover: #a2560a;
+  --color-accent-subtle: #f4dec0;
+
+  /* Secondary support accent — muted teal, used sparingly (tags, status),
+     never as a second competing "main" color. */
+  --color-support: #3e6e6b;
+  --color-support-subtle: #dceae8;
+
+  /* Semantic tokens — what components actually consume. Light mode. */
+  --color-background: var(--color-neutral-50);
+  --color-foreground: var(--color-neutral-900);
+  --color-muted-foreground: var(--color-neutral-500);
+  --color-border: var(--color-neutral-200);
+  --color-card: #ffffff;
+
+  /* Section-tone surfaces — distinct from page-level light/dark MODE.
+     A "muted" or "inverted" section is a deliberate per-section choice
+     (alternating rhythm down the page), independent of whether the
+     whole page itself is in light or dark mode. */
+  --color-surface-muted: var(--color-neutral-100);
+  --color-surface-inverted: var(--color-neutral-900);
+  --color-inverted-foreground: var(--color-neutral-50);
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-hero: clamp(2.5rem, 6vw, 4.5rem);
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing — Tailwind's default scale covers component-level spacing.
+     These are section-level rhythm tokens specifically, so vertical
+     rhythm across the narrative flow is a named decision, not scattered
+     arbitrary values (the one thing the reference-site critique praised —
+     kept deliberately, at a more generous scale). */
+  --space-section-y: 6rem;
+  --space-section-y-lg: 8rem;
+  --container-width: 76.25rem; /* ~1220px — wider than the 980px "safe middle" flagged earlier */
+  --container-padding: 1.5rem;
+
+  /* Radius scale */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows — light mode: soft, low-opacity drop shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(23 20 15 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(23 20 15 / 0.1);
+  --shadow-lg: 0 16px 40px -8px rgb(23 20 15 / 0.18);
+
+  /* Motion — single easing reference so transitions stay consistent;
+     used deliberately per section (see architecture doc, §5), not
+     applied uniformly everywhere. */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--color-neutral-950);
+    --color-foreground: var(--color-neutral-50);
+    --color-muted-foreground: var(--color-neutral-400);
+    --color-border: var(--color-neutral-800);
+    --color-card: var(--color-neutral-900);
+
+    /* "Inverted" means opposite end of the neutral scale from the
+       page's current mode, not always-black — so it stays meaningful
+       whether the page itself is in light or dark mode. */
+    --color-surface-muted: var(--color-neutral-900);
+    --color-surface-inverted: var(--color-neutral-100);
+    --color-inverted-foreground: var(--color-neutral-900);
+
+    /* Slightly lighter/more saturated so the accent keeps enough contrast
+       against a dark background instead of going muddy. */
+    --color-accent: #e8933d;
+    --color-accent-hover: #f0a352;
+
+    /* Dark surfaces want a glow/border treatment rather than a drop
+       shadow, which reads as invisible on dark backgrounds — revisited
+       properly once we actually design dark sections. */
+    --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.06);
+    --shadow-md:
+      0 0 0 1px rgb(255 255 255 / 0.08), 0 8px 24px -4px rgb(0 0 0 / 0.4);
+    --shadow-lg:
+      0 0 0 1px rgb(255 255 255 / 0.1), 0 24px 48px -12px rgb(0 0 0 / 0.5);
+  }
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border: var(--color-border);
+  --color-card: var(--color-card);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-surface-inverted: var(--color-surface-inverted);
+  --color-inverted-foreground: var(--color-inverted-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-support: var(--color-support);
+  --color-support-subtle: var(--color-support-subtle);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --text-hero: var(--text-hero);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
