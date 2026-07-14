@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { navItems, resumeLink } from "@/components/layout/nav-items";
+import { Button } from "@/components/ui/button";
 
 const SCROLL_THRESHOLD = 24;
 
@@ -82,12 +83,9 @@ export function Header() {
               {item.label}
             </a>
           ))}
-          <Link
-            href={resumeLink.href}
-            className="border-border text-foreground hover:border-accent hover:text-accent rounded-full border px-4 py-2 text-sm font-medium transition-colors"
-          >
+          <Button href={resumeLink.href} variant="secondary" size="sm">
             {resumeLink.label}
-          </Link>
+          </Button>
         </nav>
 
         <button

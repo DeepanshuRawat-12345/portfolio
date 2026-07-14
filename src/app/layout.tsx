@@ -39,11 +39,10 @@ export default function RootLayout({
         <Header />
         {/*
           No top padding here on purpose — the header starts transparent
-          and is meant to sit over whatever's at the top of the page (the
-          Hero, once built). Pages/sections without a hero-style top
-          section are responsible for their own top spacing so they don't
-          render underneath the fixed header. See src/app/page.tsx for the
-          placeholder handling this correctly in the meantime.
+          and sits over the Hero. The Hero (and any future top-of-page
+          section) is responsible for its own top spacing so it isn't
+          hidden underneath the fixed header; standalone pages without a
+          hero-style top section will need the same treatment when built.
         */}
         <main id="main-content">{children}</main>
         <Footer />

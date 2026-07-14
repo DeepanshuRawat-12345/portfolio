@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navItems, resumeLink } from "@/components/layout/nav-items";
+import { Button } from "@/components/ui/button";
 
 interface MobileNavProps {
   open: boolean;
@@ -62,13 +62,14 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 {item.label}
               </a>
             ))}
-            <Link
+            <Button
               href={resumeLink.href}
               onClick={onClose}
-              className="border-border mt-4 rounded-full border px-4 py-3 text-center text-sm font-medium"
+              variant="secondary"
+              className="mt-4"
             >
               {resumeLink.label}
-            </Link>
+            </Button>
           </motion.nav>
         </>
       )}

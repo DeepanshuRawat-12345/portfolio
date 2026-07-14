@@ -14,30 +14,35 @@
 ------------------------------------------------------------------------- */
 
 :root {
-  /* Neutral scale — warm-tinted (stone, not pure gray) to sit well
-     alongside a warm accent rather than fighting it. */
-  --color-neutral-50: #fafaf8;
-  --color-neutral-100: #f1efeb;
-  --color-neutral-200: #e4e0d8;
-  --color-neutral-300: #cbc4b6;
-  --color-neutral-400: #a69c89;
-  --color-neutral-500: #7c7263;
-  --color-neutral-600: #5c544a;
-  --color-neutral-700: #453f38;
-  --color-neutral-800: #2b2723;
-  --color-neutral-900: #1a1815;
-  --color-neutral-950: #100e0c;
+  /* Neutral scale — slate (cool, not warm) to sit correctly alongside an
+     indigo accent. Note: this is Tailwind's own slate scale, deliberately
+     — a restrained, well-tested scale is more "timeless" here than a
+     custom one invented for its own sake. */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
 
-  /* Primary accent — a considered warm copper, not the generic
-     SaaS/template green or the equally-overused "AI purple" gradient. */
-  --color-accent: #c2660c;
-  --color-accent-hover: #a2560a;
-  --color-accent-subtle: #f4dec0;
+  /* Primary accent — indigo, restrained rather than gradient-driven.
+     Indigo/purple is the most common "AI" cliché in the industry right
+     now — what keeps this from reading that way is execution, not hue:
+     used as a single flat accent (never a gradient or glow), sparingly,
+     against a quiet slate field, not washed across large surfaces. */
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-accent-subtle: #e0e7ff;
 
-  /* Secondary support accent — muted teal, used sparingly (tags, status),
-     never as a second competing "main" color. */
-  --color-support: #3e6e6b;
-  --color-support-subtle: #dceae8;
+  /* Secondary support accent — purple, for subtle highlights only, never
+     a second competing "main" color alongside the indigo. */
+  --color-support: #8e5dc1;
+  --color-support-subtle: #f1e8fa;
 
   /* Semantic tokens — what components actually consume. Light mode. */
   --color-background: var(--color-neutral-50);
@@ -89,10 +94,11 @@
   --radius-lg: 1rem;
   --radius-full: 9999px;
 
-  /* Shadows — light mode: soft, low-opacity drop shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(23 20 15 / 0.06);
-  --shadow-md: 0 4px 12px -2px rgb(23 20 15 / 0.1);
-  --shadow-lg: 0 16px 40px -8px rgb(23 20 15 / 0.18);
+  /* Shadows — light mode: soft, low-opacity drop shadows, tinted to
+     match the slate scale */
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(15 23 42 / 0.1);
+  --shadow-lg: 0 16px 40px -8px rgb(15 23 42 / 0.18);
 
   /* Motion — single easing reference so transitions stay consistent;
      used deliberately per section (see architecture doc, §5), not
@@ -115,10 +121,11 @@
     --color-surface-inverted: var(--color-neutral-100);
     --color-inverted-foreground: var(--color-neutral-900);
 
-    /* Slightly lighter/more saturated so the accent keeps enough contrast
-       against a dark background instead of going muddy. */
-    --color-accent: #e8933d;
-    --color-accent-hover: #f0a352;
+    /* Lighter/more saturated so the accent keeps enough contrast against
+       a dark background instead of going muddy. */
+    --color-accent: #818cf8;
+    --color-accent-hover: #a5b4fc;
+    --color-support: #b088d9;
 
     /* Dark surfaces want a glow/border treatment rather than a drop
        shadow, which reads as invisible on dark backgrounds — revisited
