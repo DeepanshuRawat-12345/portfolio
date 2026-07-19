@@ -4,13 +4,15 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navItems, resumeLink } from "@/components/layout/nav-items";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   open: boolean;
   onClose: () => void;
+  activeHref: string | null;
 }
 
-export function MobileNav({ open, onClose }: MobileNavProps) {
+export function MobileNav({ open, onClose, activeHref }: MobileNavProps) {
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -57,7 +59,10 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                 ref={index === 0 ? firstLinkRef : undefined}
                 href={item.href}
                 onClick={onClose}
-                className="text-foreground hover:bg-surface-muted rounded-md px-3 py-3 text-lg font-medium transition-colors"
+                className={cn(
+                  "hover:bg-surface-muted rounded-md px-3 py-3 text-lg font-medium transition-colors",
+                  item.href === activeHref ? "text-accent" : "text-foreground",
+                )}
               >
                 {item.label}
               </a>

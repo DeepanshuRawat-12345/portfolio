@@ -173,3 +173,12 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans);
 }
+
+/* Anchor navigation (nav links, Hero's scroll cue) now points at real
+   sections — smooth-scroll only when the visitor hasn't asked for
+   reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

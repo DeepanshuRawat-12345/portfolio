@@ -46,6 +46,7 @@ export function Section({
     <Tag
       id={id}
       className={cn(
+        "scroll-mt-24",
         toneClasses[tone],
         size === "lg"
           ? "py-[var(--space-section-y-lg)]"

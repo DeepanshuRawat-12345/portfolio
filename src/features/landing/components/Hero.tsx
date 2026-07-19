@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Button } from "@/components/ui/button";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
 /**
  * Variants are defined relative to reduced-motion preference rather than
@@ -31,11 +32,12 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-background relative flex min-h-svh items-center overflow-hidden"
+      className="bg-background relative flex min-h-svh scroll-mt-24 items-center overflow-hidden"
     >
       {/* Subtle technical texture — a dot grid, not a gradient or glow.
-          Reinforces "technical" without competing with the type or
-          reading as a generic AI-product background. */}
+          Faded via an opacity mask toward the bottom edge (not a color
+          gradient) so it dissolves into About rather than cutting off
+          hard at the section boundary. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-60"
@@ -43,11 +45,14 @@ export function Hero() {
           backgroundImage:
             "radial-gradient(var(--color-border) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
+          maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 60%, transparent 100%)",
         }}
       />
 
-      <Container className="relative pt-32 pb-24 md:pt-40">
-        <div className="max-w-3xl">
+      <Container className="relative grid gap-12 pt-32 pb-12 md:pt-40 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <div className="lg:col-span-7">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -75,9 +80,12 @@ export function Hero() {
             transition={transition(0.2)}
             className="text-muted-foreground mt-6 max-w-xl text-lg text-pretty"
           >
-            Working across computer vision, machine learning, and IoT to turn
-            perception and data into software that operates in the real world —
-            not just in a notebook.
+            Working across{" "}
+            <strong className="text-foreground font-medium">
+              computer vision, machine learning, and IoT
+            </strong>{" "}
+            to turn perception and data into software that operates in the real
+            world — not just in a notebook.
           </motion.p>
 
           <motion.div
@@ -87,14 +95,35 @@ export function Hero() {
             transition={transition(0.3)}
             className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
-            <Button href="#featured-projects" variant="primary">
+            <Button href="#featured-projects" variant="secondary">
               View my work
             </Button>
-            <Button href="#contact" variant="ghost">
-              Get in touch →
+            <Button href="#contact" variant="ghost" className="group">
+              Get in touch{" "}
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none">
+                →
+              </span>
             </Button>
           </motion.div>
         </div>
+
+        {/* Reserved for a future portrait — large screens only. On
+            mobile/tablet the Hero stays exactly as it was (single
+            column); the "too left-heavy" feedback was specific to large
+            screens, so that's the only place this changes. */}
+        <motion.div
+          className="hidden lg:col-span-5 lg:flex lg:justify-end"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUpVariants(reduceMotion)}
+          transition={transition(0.15)}
+        >
+          <ImagePlaceholder
+            label="Portrait coming soon"
+            aspectRatio="4/5"
+            className="w-full max-w-sm"
+          />
+        </motion.div>
       </Container>
 
       <motion.a

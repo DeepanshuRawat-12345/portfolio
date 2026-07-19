@@ -16,15 +16,16 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <Section as="footer" tone="muted" size="default">
-      <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
+    <Section as="footer" tone="inverted" size="lg">
+      <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-end md:justify-between md:text-left">
         <div>
-          <p className="font-display text-foreground text-base font-semibold">
-            Deepanshu Rawat
-          </p>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Building intelligent systems with AI, ML, Data Analytics, Computer
-            Vision, and IoT.
+          <p className="font-display text-lg font-semibold">Deepanshu Rawat</p>
+          {/* Replaces the old tagline restatement — Footer's job is to
+              read as the end of the page, not repeat the meta
+              description a third time. */}
+          <p className="text-inverted-foreground/70 mt-2 max-w-sm text-base text-pretty">
+            That&apos;s the story so far — let&apos;s talk about what&apos;s
+            next.
           </p>
         </div>
 
@@ -34,7 +35,7 @@ export function Footer() {
               key={label}
               href={href}
               aria-label={label}
-              className="text-muted-foreground hover:text-accent rounded-md p-2 transition-colors"
+              className="text-inverted-foreground/70 hover:text-accent rounded-md p-2 transition-all duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
             >
               <Icon size={20} aria-hidden="true" />
             </a>
@@ -42,7 +43,7 @@ export function Footer() {
         </div>
       </div>
 
-      <p className="text-muted-foreground mt-10 text-center text-xs md:text-left">
+      <p className="text-inverted-foreground/50 mt-12 text-center text-xs md:text-left">
         © {year} Deepanshu Rawat. All rights reserved.
       </p>
     </Section>

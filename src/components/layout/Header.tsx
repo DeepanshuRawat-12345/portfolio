@@ -7,9 +7,25 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { navItems, resumeLink } from "@/components/layout/nav-items";
+import { useActiveSection } from "@/components/layout/use-active-section";
 import { Button } from "@/components/ui/button";
 
 const SCROLL_THRESHOLD = 24;
+
+/**
+ * Underline grows in from the left on hover, and stays permanently shown
+ * (still animated in, not just present) for whichever section is
+ * currently active — a restrained micro-interaction rather than a hard
+ * color swap alone.
+ */
+function navLinkClasses(isActive: boolean) {
+  return cn(
+    "relative py-1 text-sm transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 motion-reduce:after:transition-none",
+    isActive
+      ? "text-foreground after:scale-x-100"
+      : "text-muted-foreground hover:text-foreground hover:after:scale-x-100",
+  );
+}
 
 /**
  * Starts transparent over whatever sits at the top of the page (the
@@ -21,6 +37,7 @@ const SCROLL_THRESHOLD = 24;
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const activeHref = useActiveSection();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -78,7 +95,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+              className={navLinkClasses(item.href === activeHref)}
             >
               {item.label}
             </a>
@@ -100,7 +117,11 @@ export function Header() {
         </button>
       </Container>
 
-      <MobileNav open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+      <MobileNav
+        open={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+        activeHref={activeHref}
+      />
     </header>
   );
 }
